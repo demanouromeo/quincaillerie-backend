@@ -115,7 +115,7 @@ class ApprovisionnementFlowIntegrationTest extends AbstractIntegrationTest {
 
     private void creerUtilisateur(String tokenAdmin, String nom, String login, String motDePasse, Role role)
             throws Exception {
-        UtilisateurRequest request = new UtilisateurRequest(nom, login, motDePasse, role, true);
+        UtilisateurRequest request = new UtilisateurRequest(nom, login, login + "@test.local", motDePasse, role, true);
         mockMvc.perform(post("/api/utilisateurs")
                         .header("Authorization", "Bearer " + tokenAdmin)
                         .contentType(MediaType.APPLICATION_JSON)

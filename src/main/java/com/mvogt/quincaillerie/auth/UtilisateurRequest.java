@@ -1,5 +1,6 @@
 package com.mvogt.quincaillerie.auth;
 
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
@@ -10,6 +11,7 @@ import jakarta.validation.constraints.NotNull;
 public record UtilisateurRequest(
         @NotBlank String nom,
         @NotBlank String login,
+        @NotBlank @Email String email,
         String motDePasse,
         @NotNull Role role,
         boolean actif

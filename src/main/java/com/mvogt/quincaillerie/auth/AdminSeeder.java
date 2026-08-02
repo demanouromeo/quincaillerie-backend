@@ -28,6 +28,7 @@ public class AdminSeeder implements CommandLineRunner {
         Utilisateur admin = Utilisateur.builder()
                 .nom("Administrateur")
                 .login(DEFAULT_LOGIN)
+                .email("admin@quincaillerie.local")
                 .motDePasse(passwordEncoder.encode(DEFAULT_PASSWORD))
                 .role(Role.ADMIN)
                 .actif(true)

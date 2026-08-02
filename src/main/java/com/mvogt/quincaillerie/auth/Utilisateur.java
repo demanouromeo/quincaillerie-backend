@@ -33,6 +33,9 @@ public class Utilisateur {
     @Column(nullable = false, unique = true)
     private String login;
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @Column(name = "mot_de_passe", nullable = false)
     private String motDePasse;
 

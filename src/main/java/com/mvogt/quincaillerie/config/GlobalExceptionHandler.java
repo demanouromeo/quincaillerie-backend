@@ -9,12 +9,19 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import jakarta.persistence.EntityNotFoundException;
 
+import com.mvogt.quincaillerie.auth.MotDePasseIncorrectException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleNotFound(EntityNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ErrorResponse(ex.getMessage()));
+    }
+
+    @ExceptionHandler(MotDePasseIncorrectException.class)
+    public ResponseEntity<ErrorResponse> handleMotDePasseIncorrect(MotDePasseIncorrectException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(ex.getMessage()));
     }
 
     @ExceptionHandler(BadCredentialsException.class)

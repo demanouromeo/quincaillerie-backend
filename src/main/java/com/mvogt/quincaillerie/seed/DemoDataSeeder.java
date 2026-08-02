@@ -106,8 +106,10 @@ public class DemoDataSeeder implements CommandLineRunner {
 
         Map<String, Categorie> categories = creerCategories();
         List<Fournisseur> fournisseurs = creerFournisseurs();
-        Utilisateur gestionnaire = creerUtilisateurSiAbsent("gestionnaire_demo", "Jean Mvondo", Role.GESTIONNAIRE, "gestion123");
-        Utilisateur vendeur = creerUtilisateurSiAbsent("vendeur_demo", "Aicha Ngo Bakang", Role.VENDEUR, "vendeur123");
+        Utilisateur gestionnaire = creerUtilisateurSiAbsent("gestionnaire_demo", "Jean Mvondo", Role.GESTIONNAIRE,
+                "gestion123", "gestionnaire_demo@quincaillerie.local");
+        Utilisateur vendeur = creerUtilisateurSiAbsent("vendeur_demo", "Aicha Ngo Bakang", Role.VENDEUR,
+                "vendeur123", "vendeur_demo@quincaillerie.local");
 
         List<Produit> produits = creerProduits(categories);
         log.info("Seed: {} produits crees.", produits.size());
@@ -161,10 +163,11 @@ public class DemoDataSeeder implements CommandLineRunner {
         return fournisseurs;
     }
 
-    private Utilisateur creerUtilisateurSiAbsent(String login, String nom, Role role, String motDePasse) {
+    private Utilisateur creerUtilisateurSiAbsent(String login, String nom, Role role, String motDePasse, String email) {
         return utilisateurRepository.findByLogin(login).orElseGet(() -> utilisateurRepository.save(Utilisateur.builder()
                 .nom(nom)
                 .login(login)
+                .email(email)
                 .motDePasse(passwordEncoder.encode(motDePasse))
                 .role(role)
                 .actif(true)
