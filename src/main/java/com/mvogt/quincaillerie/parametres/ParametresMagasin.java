@@ -23,6 +23,12 @@ public class ParametresMagasin {
     @Id
     private Long id;
 
+    @Column(nullable = false, length = 150)
+    private String nom;
+
+    @Column(nullable = false, length = 255)
+    private String domaine;
+
     @Column(nullable = false, length = 30)
     private String telephone;
 

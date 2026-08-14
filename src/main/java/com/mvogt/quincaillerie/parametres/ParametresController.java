@@ -11,9 +11,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 /**
- * Coordonnees du magasin (telephone/ville/email) affichees sur l'en-tete des recus de vente —
- * une seule ligne en base (id fixe), lecture ouverte a tout utilisateur authentifie (le
- * vendeur en a besoin pour imprimer un recu), modification reservee a l'ADMIN.
+ * Identite et coordonnees du magasin (nom/domaine/telephone/ville/email) affichees sur
+ * l'en-tete des recus de vente — une seule ligne en base (id fixe), lecture ouverte a tout
+ * utilisateur authentifie (le vendeur en a besoin pour imprimer un recu), modification
+ * reservee a l'ADMIN.
  */
 @RestController
 @RequestMapping("/api/parametres")
@@ -33,6 +34,8 @@ public class ParametresController {
     @PreAuthorize("hasRole('ADMIN')")
     public ParametresResponse modifier(@Valid @RequestBody ParametresRequest request) {
         ParametresMagasin parametres = recupererOuCreer();
+        parametres.setNom(request.nom());
+        parametres.setDomaine(request.domaine());
         parametres.setTelephone(request.telephone());
         parametres.setVille(request.ville());
         parametres.setEmail(request.email());
@@ -43,6 +46,8 @@ public class ParametresController {
         return parametresRepository.findById(ID_UNIQUE)
                 .orElseGet(() -> parametresRepository.save(ParametresMagasin.builder()
                         .id(ID_UNIQUE)
+                        .nom("QUINCAILLERIE MVOGT")
+                        .domaine("Materiaux de construction & quincaillerie generale")
                         .telephone("+237 677 28 29 27")
                         .ville("Yaounde")
                         .email("qmvogt@gmail.com")
